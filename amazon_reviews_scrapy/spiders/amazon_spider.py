@@ -39,13 +39,13 @@ class Amazon_Reviews_Spider(scrapy.Spider):
 
        #Parsing all reviews
        #.css('div[data-hook=review]'           
-          
+
            yield {
                'id': review.xpath('@id').extract_first(),
                'stars': self.extract_stars(review),
                'title': review.css('a.review-title::text').extract_first(),
-               'author_profile_url': review.css('a[data-hook="review-author"]::attr(href)').extract_first(),
-               'author_name': review.css('a[data-hook="review-author"]::text').extract_first(),
+               'author_profile_url': review.css('a[class="a-profile"]::attr(href)').extract_first(),
+               'author_name': review.css('span[class="a-profile-name"]::text').extract_first(),
                'badges': review.css('span.c7y-badge-text::text').extract(),
                'review_date': review.css('span.review-date::text').extract_first(),
                'review_text': '\n'.join(review.css('span.review-text::text').extract()),
